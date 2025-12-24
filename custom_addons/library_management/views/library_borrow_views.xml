@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="view_library_borrow_list" model="ir.ui.view">
+		<field name="name">library.borrow.list</field>
+		<field name="model">library.borrow</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="book_id"/>
+				<field name="member_id"/>
+				<field name="borrow_date"/>
+				<field name="return_date"/>
+				<field name="status"/>
+			</list>
+		</field>
+	</record>
+
+	<record id="view_library_borrow_form" model="ir.ui.view">
+		<field name="name">library.borrow.form</field>
+		<field name="model">library.borrow</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="book_id"/>
+						<field name="member_id"/>
+					</group>
+					<group>
+						<field name="borrow_date"/>
+						<field name="return_date"/>
+						<field name="status"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_library_borrow_graph" model="ir.ui.view">
+	    <field name="name">library.borrow.graph</field>
+	    <field name="model">library.borrow</field>
+	    <field name="arch" type="xml">
+	        <graph string="Books Borrow" type="bar">
+	            <!-- GROUP BY BOOK -->
+	            <field name="book_id" type="row"/>
+	            <field name="id" type="measure"/>
+	        </graph>
+	    </field>
+	</record>
+
+
+	<record id="action_library_borrow" model="ir.actions.act_window">
+		<field name="name">Borrowers</field>
+		<field name="res_model">library.borrow</field>
+		<field name="view_mode">list,form</field>
+	</record>
+
+	<record id="action_library_borrow_graph" model="ir.actions.act_window">
+	    <field name="name">Books Sold Graph</field>
+	    <field name="res_model">library.borrow</field>
+	    <field name="view_mode">graph,pivot</field>
+	</record>
+
+	<menuitem id="menu_library_reports"
+          name="Reports"
+          parent="menu_library_root" sequence="60"/>
+
+	<menuitem id="menu_books_sold_graph"
+          name="Books Sold"
+          parent="menu_library_reports"
+          action="action_library_borrow_graph"/>
+</odoo>
