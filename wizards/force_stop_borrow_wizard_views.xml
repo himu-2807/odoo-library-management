@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Wizard Form View -->
+    <record id="view_force_stop_borrow_wizard_form" model="ir.ui.view">
+        <field name="name">force.stop.borrow.wizard.form</field>
+        <field name="model">force.stop.borrow.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Force Close Borrow">
+                <group>
+                    <field name="borrow_id"/>
+                </group>
+
+                <footer>
+                    <button name="action_force_close"
+                            string="Force Close"
+                            type="object"
+                            class="btn-danger"/>
+
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+</odoo>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree/List View -->
+    <record id="view_library_book_list" model="ir.ui.view">
+        <field name="name">library.book.list</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list string="Library Books">
+                <field name="book_code" readonly="1"/>
+                <field name="name"/>
+                <field name="author_id"/>
+                <field name="publish_date"/>
+                <field name="pages"/>
+                <field name="price"/>
+                <field name="available"/>
+                <!--<field name="state"/> -->
+                <field name="category_id"/>
+            </list>
+        </field>
+    </record>
+
+   
+    <!-- Form View -->
+    <record id="view_library_book_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Library Book">
+                <header>
+                    <button name="action_open_borrow_history" type="object" class="oe_stat_button" icon="fa-book">
+                        <field name="borrow_count" widget="statinfo" string="Borrowed"/>
+                    </button>
+                </header>
+
+                <sheet>
+                    <group>
+                        <field name="book_code" readonly="1"/>
+                        <field name="name" widget="CopyClipboardChar"/>
+                        <field name="author_id"/>
+                    </group>
+                    <group>
+                        <field name="publish_date"/>
+                        <field name="pages"/>
+                        <field name="price"/>
+                        <field name="available"/>
+                        <!--<field name="state"/> -->
+                        <field name="category_id" widget="many2many_tags" placeholder="Select Category"/>
+
+                    </group>
+
+                    <notebook>
+                        <page string="Borrow History">
+                            <field name="borrow_ids" context="{'default_book_id':id}">
+                                <list editable="bottom">
+                                    <field name="member_id"/>
+                                    <field name="borrow_date"/>
+                                    <field name="return_date"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Search Field-->
+    <record id="view_library_book_search" model="ir.ui.view">
+        <field name="name">library.book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="book_code"/>
+
+                <filter name="available_true" string="Available" domain="[('available','=',True)]"/>
+                <filter name="available_false" string="Not Available" domain="[('available','=',False)]"/>
+
+                <group>
+                    <filter string="Author" name="group_by_author" context="{'group_by':'author_id'}"/>
+                    <filter string="Category" name="group_by_cat" context="{'group_by':'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

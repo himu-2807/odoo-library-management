@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="view_library_borrow_list" model="ir.ui.view">
+		<field name="name">library.borrow.list</field>
+		<field name="model">library.borrow</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="book_id"/>
+				<field name="member_id"/>
+				<field name="borrow_date"/>
+				<field name="return_date"/>
+				<field name="status"/>
+			</list>
+		</field>
+	</record>
+
+	<record id="view_library_borrow_form" model="ir.ui.view">
+		<field name="name">library.borrow.form</field>
+		<field name="model">library.borrow</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+				     <button name="%(library_management.action_force_close_borrow)d"
+			            string="Force Close"
+			            type="action"
+			            class="btn-danger"
+			            modifiers="{'invisible': [('status','=','returned')]}"/>
+				</header>
+				<sheet>
+					<group>
+						<field name="book_id"/>
+						<field name="member_id"/>
+					</group>
+					<group>
+						<field name="borrow_date"/>
+						<field name="return_date"/>
+						<field name="status"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_library_borrow_graph" model="ir.ui.view">
+	    <field name="name">library.borrow.graph</field>
+	    <field name="model">library.borrow</field>
+	    <field name="arch" type="xml">
+	        <graph string="Books Borrow" type="bar">
+	            <!-- GROUP BY BOOK -->
+	            <field name="book_id" type="row"/>
+	            <field name="id" type="measure"/>
+	        </graph>
+	    </field>
+	</record>
+
+	<!--Search Field-->
+	<record id="view_library_borrow_search" model="ir.ui.view">
+		<field name="name">library.borrow.search</field>
+		<field name="model">library.borrow</field>
+		<field name="arch" type="xml">
+			<search string="Borrow search">
+				<field name="member_id"/>
+				<field name="status"/>
+				<searchpanel>
+					<field name="book_id"/>
+				</searchpanel>
+				<filter string="Returned" name="returned" domain="[('status','=','returned')]"/>
+				<filter string="Borrowed" name="borrowed" domain="[('status','=','borrowed')]"/>
+
+				<group>
+					<filter string="BookName" name="group_by_book" context="{'group_by':'book_id'}"/>
+					<filter string="Member" name="group_by_member" context="{'group_by':'member_id'}"/>
+					<filter string="Status" name="group_by_status" context="{'group':'status'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_library_borrow" model="ir.actions.act_window">
+		<field name="name">Borrowers</field>
+		<field name="res_model">library.borrow</field>
+		<field name="view_mode">list,form</field>
+	    <field name="search_view_id" ref="view_library_borrow_search"/>
+	</record>
+
+	<record id="action_library_borrow_graph" model="ir.actions.act_window">
+	    <field name="name">Books Sold Graph</field>
+	    <field name="res_model">library.borrow</field>
+	    <field name="view_mode">graph,pivot</field>
+	</record>
+
+	
+</odoo>

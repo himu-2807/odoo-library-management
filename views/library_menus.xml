@@ -1,0 +1,49 @@
+<odoo>
+
+    <!-- ROOT MENU -->
+    <menuitem id="menu_library_root"
+              name="Library"
+              sequence="10"/>
+
+    <!-- MAIN MENUS -->
+    <menuitem id="menu_library_books"
+              name="Books"
+              parent="menu_library_root"
+              action="action_library_book"
+              sequence="10"/>
+
+    <menuitem id="menu_library_category"
+              name="Categories"
+              parent="menu_library_root"
+              action="action_library_category"
+              sequence="20"/>
+
+    <menuitem id="menu_library_borrow"
+              name="Borrowers"
+              parent="menu_library_root"
+              action="action_library_borrow"
+              sequence="30"/>
+
+    <menuitem id="menu_library_member"
+              name="Members"
+              parent="menu_library_root"
+              action="action_library_member"
+              sequence="40"/>
+    <menuitem
+              id="menu_library_fine"
+              name="Fines"
+              parent="menu_library_root"
+              action="action_library_fine"
+              sequence="50"/>
+
+    <menuitem id="menu_library_reports"
+              name="Reports"
+              parent="menu_library_root"
+              sequence="60"/>
+
+    <menuitem id="menu_books_sold_graph"
+          name="Books Sold"
+          parent="menu_library_reports"
+          action="action_library_borrow_graph"/>
+
+</odoo>

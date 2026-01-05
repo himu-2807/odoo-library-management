@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="action_force_close_borrow" model="ir.actions.act_window">
+        <field name="name">Force Close Borrow</field>
+        <field name="res_model">force.stop.borrow.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_borrow_id': active_id}</field>
+    </record>
+
+</odoo>
